@@ -1,20 +1,21 @@
 {
     "name": "huttchdev/craft-webpme",
-    "description": "Get WebP image url if visitor browser and server support WebP",
+    "description": "Get a WebP image url if the visitors browser and the server both support WebP",
     "type": "craft-plugin",
-    "keywords": ["webp", "image", "url", "support"],
+    "version": "1.0.0",
+    "keywords": ["webp", "image", "url", "support", "compression", "optimise"],
     "license": "MIT",
     "authors": [
         {
             "name": "HuttchDev",
-            "homepage": "https://huttchdev.com"
+            "homepage": "https://github.com/HuttchDev/craft-webpme"
         }
     ],
     "support": {
-        "email": "admin@huttchdev.com",
-        "issues": "",
-        "source": "",
-        "docs": ""
+        "email": "support@huttchdev.com",
+        "issues": "https://github.com/HuttchDev/craft-webpme/issues",
+        "source": "https://github.com/HuttchDev/craft-webpme",
+        "docs": "https://github.com/HuttchDev/craft-webpme/blob/main/README.md"
     },
     "require": {
         "craftcms/cms": "^4.3.6"
