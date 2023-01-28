@@ -53,6 +53,14 @@ class TwigExtension extends AbstractExtension
         }
         $imgParams = $params != null ? $params : array();
         $imgParams['format'] = 'webp';
+        
+        // If already WebP image and browser does not support
+        if($image->extension == 'webp' && $browserSupport == false)
+        {
+            // Fallback to PNG incase of transparency
+            $imgParams['format'] = 'png';
+        } 
+        
         // Check params
         if(isset($params))
         {
