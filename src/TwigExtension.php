@@ -28,8 +28,20 @@ class TwigExtension extends AbstractExtension
             }),
             new TwigFunction('webp', function(craft\elements\Asset $image, Array $params = null){
                 return $this->GetWebP($image, $params);
+            }),
+            new TwigFunction('IsWebPSupported', function(){
+                return $this->WebPSupported();
             })
         ];
+    }
+
+    public function WebPSupported()
+    {
+        if(isset(Craft::$app->request->headers['accept']) && str_contains(Craft::$app->request->headers['accept'], 'image/webp') && Craft::$app->images->supportsWebP)
+        {
+            return true;
+        }
+        return false;
     }
 
     public function GetWebP(craft\elements\Asset $image, Array $params = null)
