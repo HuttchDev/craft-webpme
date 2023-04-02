@@ -11,7 +11,7 @@ Simple function that returns a WebP formatted image url if the visitors browser 
 WebP Twig Function
 ```
 Example:
-{{ WebP(entry.image.one, {'mode': 'crop', 'height': '600', 'width': '800'}) }}
+{{ WebP(entry.image.one(), {'mode': 'crop', 'height': '600', 'width': '800'}) }}
 ```
 Optional Function Name Variations (for your preference)
 ```
@@ -21,5 +21,9 @@ WebPMe()
 webpMe()
 webpme()
 ```
-
+IsWebPSupported Twig Function
+```
+IsWebPSupported
+```
+Return true or false depending on server and visitor browser support
 
