@@ -6,6 +6,9 @@ use Craft;
 
 class TwigExtension extends AbstractExtension
 {
+    private bool $supported = false;
+    private bool $checked = false;
+    
     public function getName(): string 
     {
         return 'WebP Me';
@@ -30,34 +33,28 @@ class TwigExtension extends AbstractExtension
                 return $this->GetWebP($image, $params);
             }),
             new TwigFunction('IsWebPSupported', function(){
-                return $this->WebPSupported();
+                return $this->Supported();
             })
         ];
     }
 
-    public function WebPSupported()
+    public function Supported() : bool
     {
+        if($this->checked)
+        {
+            return $this->supported;
+        }
+        // Check Support
         if(isset(Craft::$app->request->headers['accept']) && str_contains(Craft::$app->request->headers['accept'], 'image/webp') && Craft::$app->images->supportsWebP)
         {
-            return true;
+            $this->supported = true;
         }
-        return false;
+        $this->checked = true;
+        return $this->supported;
     }
 
     public function GetWebP(craft\elements\Asset $image, Array $params = null)
-    {
-        // Check if browser supports WebP
-        $browserSupport = false;
-        if(isset(Craft::$app->request->headers['accept']) && str_contains(Craft::$app->request->headers['accept'], 'image/webp'))
-        {
-            $browserSupport = true;
-        }
-        // Check if server supports WebP
-        $serverSupport = false;
-        if(Craft::$app->images->supportsWebP)
-        {
-            $serverSupport = true;
-        }
+    {   
         // Check if image
         if($image->kind != 'image')
         {
@@ -67,16 +64,16 @@ class TwigExtension extends AbstractExtension
         $imgParams['format'] = 'webp';
         
         // If already WebP image and browser does not support
-        if($image->extension == 'webp' && $browserSupport == false)
+        if($image->extension == 'webp' && !$this->Supported())
         {
             // Fallback to PNG incase of transparency
             $imgParams['format'] = 'png';
-        } 
+        }
         
         // Check params
         if(isset($params))
         {
-            if($browserSupport && $serverSupport && $image->extension != 'svg')
+            if($this->Supported() && $image->extension != 'svg')
             {
                 return $image->getUrl($imgParams);
             }
@@ -84,13 +81,12 @@ class TwigExtension extends AbstractExtension
         }
         else
         {
-            if($browserSupport && $serverSupport && $image->extension != 'svg')
+            if($this->Supported() && $image->extension != 'svg')
             {
                 return $image->getUrl($imgParams);
             }
             return $image->getUrl();
         }
-        return null;
     }
 }
 
