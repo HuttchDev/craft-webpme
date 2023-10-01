@@ -2,7 +2,7 @@
     "name": "huttchdev/craft-webpme",
     "description": "Get a WebP image url if the visitors browser and the server both support WebP",
     "type": "craft-plugin",
-    "version": "1.1.0",
+    "version": "1.1.1",
     "keywords": ["webp", "image", "url", "support", "compression", "optimise"],
     "license": "MIT",
     "authors": [
