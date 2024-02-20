@@ -1,4 +1,8 @@
 # Change Log for Craft WebP Me
+## 1.1.2 - 2024-02-20
+- Update README / Docs
+- Add Support For Craft CMS 5
+
 ## 1.1.1 - 2023-10-01
 - Code cleanup and slight performance improvement
 
